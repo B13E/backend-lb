@@ -2,36 +2,42 @@ package com.example.demo.ressources.product;
 
 import com.example.demo.ressources.category.Category;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Collection;
 
 @Entity
+@Getter
+@Setter
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    public Integer id;
 
     @Column(columnDefinition = "varchar(100)")
-    private String sku;
+    public String sku;
 
     @Column(columnDefinition = "varchar(500)", nullable = false)
-    private String name;
+    public String name;
 
     @Column(columnDefinition = "varchar(1000)", nullable = false)
-    private String image;
+    public String image;
 
     @Column(columnDefinition = "MEDIUMTEXT", nullable = false)
-    private String description;
+    public String description;
 
     @Column(columnDefinition = "FLOAT")
-    private Float price;
+    public Float price;
 
     @Column(columnDefinition = "INT", nullable = false)
-    private Integer stock;
+    public Integer stock;
 
     @ManyToOne()
-    private Category category;
+    public Category category;
 
+}
     /*
     public Collection<Product> getProduct() {
         return product;
@@ -42,4 +48,25 @@ public class Product {
     }
 
      */
+
+
+/*
+package com.example.demo.ressources.product;
+
+import com.example.demo.ressources.category.Category;
+import jakarta.persistence.*;
+
+@Entity
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    // ... existing fields
+
+    @ManyToOne
+    private Category category;
+
+    // Getters and Setters
 }
+
+ */

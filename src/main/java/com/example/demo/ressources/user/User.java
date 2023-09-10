@@ -22,4 +22,3 @@ public class User {
     @Column(columnDefinition = "DATE", nullable = false)
     private Date geburtstag;
 }
-
