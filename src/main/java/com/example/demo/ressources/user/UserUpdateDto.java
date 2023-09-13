@@ -11,7 +11,9 @@ public class UserUpdateDto {
     @NotNull
     private Integer id;
     private String benutzername;
+    @NotNull
     private String passwort;
+    @NotNull
     private String email;
     private Date geburtstag;
 }

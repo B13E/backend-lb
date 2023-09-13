@@ -48,25 +48,3 @@ public class Product {
     }
 
      */
-
-
-/*
-package com.example.demo.ressources.product;
-
-import com.example.demo.ressources.category.Category;
-import jakarta.persistence.*;
-
-@Entity
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    // ... existing fields
-
-    @ManyToOne
-    private Category category;
-
-    // Getters and Setters
-}
-
- */

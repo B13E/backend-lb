@@ -9,7 +9,6 @@ public abstract class ProductMapper {
 
     @Mapping(source = "sku", target = "sku")
     @Mapping(source = "name", target = "name")
-    // ... Weitere Mappings
     public abstract Product toEntity(ProductCreateDto productCreateDto);
 
     @Mapping(source = "name", target = "name")
@@ -18,12 +17,10 @@ public abstract class ProductMapper {
 
     @Mapping(source = "sku", target = "sku")
     @Mapping(source = "name", target = "name")
-    // ... Weitere Mappings
     @Mapping(source = "id", target = "id")
     public abstract ProductDetailDto toDetailDto(Product product);
 
     @Mapping(source = "sku", target = "sku")
     @Mapping(source = "name", target = "name")
-    // ... Weitere Mappings
     public abstract void update(ProductUpdateDto productToUpdate, @MappingTarget Product productEntityToUpdate);
 }

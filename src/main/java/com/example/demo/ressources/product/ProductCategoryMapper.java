@@ -7,5 +7,5 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public abstract class ProductCategoryMapper {
 
-    // Hier können spezifische Mappings für die Category DTOs und Entitäten definieren, ähnlich wie beim ProductMapper.
+    // spezifische Mappings für die Category DTOs und Entitäten definieren, ähnlich wie beim ProductMapper.
 }

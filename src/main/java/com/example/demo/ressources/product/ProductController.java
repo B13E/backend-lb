@@ -2,38 +2,46 @@
 package com.example.demo.ressources.product;
 
 import com.example.demo.ressources.category.Category;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController  // Indicates that this is a REST controller
-@RequestMapping("/product")  // Sets the base URL path
+@RestController
+@Tag(name="ProductController", description = "Controller für Produkte")
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
-    private ProductService productService;  // Made private for encapsulation
+    private ProductService productService;
 
     // GET localhost:8080/product
     @GetMapping  // Maps to GET HTTP method
-    public List<Product> getAllProducts() {  // Renamed for clarity
-        return productService.findAll();  // Assuming the method in ProductService is called 'findAll'
+    @Operation(summary = "Erstellt eine Liste mit vorhandenen Produkte", operationId = "id", description = "Gibt eine Liste aller Produkte aus.")
+    public List<Product> getAllProducts() {
+        return productService.findAll();
     }
 
     @PostMapping("/create")
+    @Operation(summary = "Erstellt ein neues Produkt ", operationId = "create", description = "Erstellt ein neues Produkt in der Datenbank.")
     public Product createProduct(@RequestBody Product product) {
 
         return productService.create(product);
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable int id, @RequestBody Product product) {
+    @Operation(summary = "Ein erstelltes Produkt bearbeiten", operationId = "id", description = "Bei einer Fehleingabe oder einem Fehler im erstellten Produkt, kann das Produkt bearbeitet werden.")
+    public Product updateProduct(@Parameter(description = "Das Produkt mit der angegebenen ID kann bearbeitet werden.")@PathVariable int id, @RequestBody Product product) {
         return productService.update(id, product);
     }
 
     @DeleteMapping("/{id}") // 2mal {id} geht da es put oder delete ist
-    public void deleteProduct(@PathVariable Integer id) {
+    @Operation(summary = "Löscht ein Produkt ", operationId = "id", description = "Löscht das Produkt mit der Eingegebenen ID und entfernt es aus der Datenbank.")
+    public void deleteProduct(@Parameter(description = "Das Produkte mit der angegebenen ID wird aus der Datenbank entfernt.")@PathVariable Integer id) {
         productService.deleteById(id);
     }
 
@@ -80,52 +88,3 @@ public class ProductController {
 
  */
 }
-
-/*
-package com.example.demo.ressources.product;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
-
-@RestController  // Indicates that this is a REST controller
-@RequestMapping("/product")  // Sets the base URL path
-public class ProductController {
-
-    @Autowired
-    private ProductService productService;  // Made private for encapsulation
-
-    // GET localhost:8080/product
-    @GetMapping  // Maps to GET HTTP method
-    public List<Product> getAllProducts() {  // Renamed for clarity
-        return productService.findAll();  // Assuming the method in ProductService is called 'findAll'
-    }
-
-    @PostMapping("/create")
-    public Product createProduct(@RequestBody Product product) {
-
-        return productService.create(product);
-    }
-
-    @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable int id, @RequestBody Product product) {
-        return productService.update(id, product);
-    }
-
-    @DeleteMapping("/{id}") // 2mal {id} geht da es put oder delete ist
-    public void deleteProduct(@PathVariable Integer id) {
-        productService.deleteById(id);
-    }
-
-    @PostMapping("/readBy{ID}")
-    public Optional<Product> readProductById(@PathVariable int id) {
-
-        return productService.findById(id);
-    }
-
-
-}
-
- */

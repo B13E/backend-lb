@@ -1,5 +1,7 @@
 package com.example.demo.ressources.category;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Tag(name="CategoryController", description = "Controller für Kategorien")
 @RequestMapping("/category")
 public class CategoryController {
 
@@ -14,12 +17,14 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
+    @Operation(summary = "Listet alle Kategorien auf.", operationId = "id", description = "Sucht nach allen Einträgen in Kategorien und erstellt eine Liste mit den vorhandenen Kategorien aus der Datenbank.")
     public List<Category> getAllCategories() {
 
         return categoryService.findAll();
     }
 
     @PostMapping("/create")
+    @Operation(summary = "Löscht ein Produkt ", operationId = "id", description = "Erstellt eine neue Kategorie in der Datenbank.")
     public Category createCategory(@RequestBody Category category) {
 
         return categoryService.create(category);
