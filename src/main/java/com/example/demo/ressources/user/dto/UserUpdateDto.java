@@ -1,4 +1,4 @@
-package com.example.demo.ressources.user;
+package com.example.demo.ressources.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,13 +7,14 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class UserCreateDto {
+public class UserUpdateDto {
     @NotNull
+    private Integer id;
     private String benutzername;
     @NotNull
     private String passwort;
     @NotNull
     private String email;
-    @NotNull
     private Date geburtstag;
 }
+

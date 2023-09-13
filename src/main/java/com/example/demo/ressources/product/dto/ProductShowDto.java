@@ -1,4 +1,4 @@
-package com.example.demo.ressources.product;
+package com.example.demo.ressources.product.dto;
 
 import lombok.Getter;
 import lombok.Setter;

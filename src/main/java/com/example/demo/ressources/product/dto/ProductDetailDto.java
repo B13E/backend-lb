@@ -1,4 +1,4 @@
-package com.example.demo.ressources.product;
+package com.example.demo.ressources.product.dto;
 
 import com.example.demo.ressources.category.Category;
 import io.swagger.v3.oas.annotations.media.Schema;

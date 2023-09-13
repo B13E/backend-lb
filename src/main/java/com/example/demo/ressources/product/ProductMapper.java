@@ -1,5 +1,9 @@
 package com.example.demo.ressources.product;
 
+import com.example.demo.ressources.product.dto.ProductCreateDto;
+import com.example.demo.ressources.product.dto.ProductDetailDto;
+import com.example.demo.ressources.product.dto.ProductShowDto;
+import com.example.demo.ressources.product.dto.ProductUpdateDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
