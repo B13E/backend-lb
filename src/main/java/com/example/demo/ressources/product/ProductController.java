@@ -45,7 +45,7 @@ public class ProductController {
         productService.deleteById(id);
     }
 
-    @PostMapping("/readBy{ID}")
+    @PostMapping("/readBy{id}")
     public Optional<Product> readProductById(@PathVariable int id) {
 
         return productService.findById(id);

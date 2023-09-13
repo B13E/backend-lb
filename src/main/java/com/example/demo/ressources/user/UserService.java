@@ -2,7 +2,6 @@ package com.example.demo.ressources.user;
 
 import org.springframework.stereotype.Service;
 
-import javax.naming.Name;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +12,11 @@ public class UserService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    // Für Schritt 3
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 
     public List<User> findAll() {

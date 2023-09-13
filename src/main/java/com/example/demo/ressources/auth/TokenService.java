@@ -1,9 +1,12 @@
-/*
-package com.example.demo.ressources;
+package com.example.demo.ressources.auth;
 
 import com.example.demo.ressources.user.User;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Service;
 
-public class TokenService {
+import java.util.Date;
+
     @Service
     public class TokenService {
         // PLEASE USE A MORE SECURE KEY :-)
@@ -19,5 +22,4 @@ public class TokenService {
                     .compact();
         }
     }
-}
-*/
+

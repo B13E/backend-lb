@@ -24,7 +24,7 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    @Operation(summary = "Löscht ein Produkt ", operationId = "id", description = "Erstellt eine neue Kategorie in der Datenbank.")
+    @Operation(summary = "Neues Produkt erstellen", operationId = "id", description = "Erstellt eine neue Kategorie in der Datenbank.")
     public Category createCategory(@RequestBody Category category) {
 
         return categoryService.create(category);

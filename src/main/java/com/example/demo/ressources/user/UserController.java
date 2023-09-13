@@ -43,6 +43,21 @@ public class UserController {
         return user;
     }
 
+   /* @PostMapping("/auth/login")
+    public TokenWrapper login(@RequestBody LoginRequestDto loginRequestDto) {
+        User user = this.userService.getUserWithCredentials(loginRequestDto);
+        if (user != null) {
+            TokenWrapper tokenWrapper = new TokenWrapper();
+            String token = this.tokenService.generateToken(user);
+            tokenWrapper.setToken(token);
+            return tokenWrapper;
+        } else {
+            // Errorhandling.
+            // Either return 401 or 400
+            return null;
+        }
+    }*/
+
     @PutMapping("/user/upgrade")
     public User upgradeUserToAdmin(@RequestBody User user) {
         return user;
