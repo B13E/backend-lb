@@ -1,10 +1,6 @@
 package com.example.demo.ressources.category;
 
-import com.example.demo.ressources.product.Product;
-import com.example.demo.ressources.product.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +8,7 @@ import java.util.Optional;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }

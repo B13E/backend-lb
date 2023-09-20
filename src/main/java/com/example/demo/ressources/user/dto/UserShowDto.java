@@ -11,7 +11,7 @@ public class UserShowDto {
     @NotNull
     private Integer id;
     @NotNull
-    private String benutzername;
+    private String username;
     @NotNull
     private String email;
 }

@@ -12,10 +12,12 @@ public class ProductUpdateDto {
     private String sku;
     @NotNull
     private String name;
+    @NotNull
     private String image;
     private String description;
     @NotNull
     private Float price;
+    @NotNull
     private Integer stock;
     private Category category;
 }

@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 @Setter
 public class ProductCreateDto {
     @NotNull
-    private String sku;
+    private String sku; // Artikelnummer
 
     @NotNull
     private String name;
@@ -21,6 +21,7 @@ public class ProductCreateDto {
     @NotNull
     private String description;
 
+    @NotNull
     private Float price;
 
     @NotNull

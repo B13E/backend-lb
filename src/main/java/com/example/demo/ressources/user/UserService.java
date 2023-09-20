@@ -1,5 +1,6 @@
 package com.example.demo.ressources.user;
 
+import com.example.demo.ressources.auth.dto.LoginRequestDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    // Für Schritt 3
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
@@ -45,4 +45,16 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public User register(User user) {
+        return userRepository.save(user);
+    }
+
+    public User getUserWithCredentials(LoginRequestDto loginRequestDto) {
+        return userRepository.findByEmailAndPasswort(loginRequestDto.getEmail(), loginRequestDto.getPassword());
+    }
+
+    public User upgradeUserToAdmin(User user) {
+        user.setAdmin(true); // Benutzer als Admin festlegen
+        return userRepository.save(user);
+    }
 }

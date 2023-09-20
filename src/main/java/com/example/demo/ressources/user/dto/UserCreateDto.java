@@ -9,11 +9,11 @@ import java.util.Date;
 @Setter
 public class UserCreateDto {
     @NotNull
-    private String benutzername;
+    private String username;
     @NotNull
-    private String passwort;
+    private String password;
     @NotNull
     private String email;
     @NotNull
-    private Date geburtstag;
+    private Date birthday;
 }

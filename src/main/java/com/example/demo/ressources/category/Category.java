@@ -4,6 +4,7 @@ import com.example.demo.ressources.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
 import java.util.Collection;
 
@@ -24,5 +25,6 @@ public class Category {
     @Column(columnDefinition = "varchar(255)", nullable = false)
     private String name;
 
-
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Product> products;
 }

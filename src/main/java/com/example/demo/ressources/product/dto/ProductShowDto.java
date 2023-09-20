@@ -14,5 +14,6 @@ public class ProductShowDto {
     @NotNull
     private String name;
 
+    @NotNull
     private String image;
 }

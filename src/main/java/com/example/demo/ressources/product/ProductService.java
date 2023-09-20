@@ -35,18 +35,17 @@ public class ProductService {
     }
 
     public Optional<Product> findById(int id) {
-
         return productRepository.findById(id);
     }
 
     public void deleteById(Integer id) {
         productRepository.deleteById(id);
     }
-/*
-    public List<Product> sortProductsById(int id) {
-        productRepository.sortProductsById(id);
-    }
 
+    public List<Product> findByCategoryId(Integer categoryId) {
+        return productRepository.findByCategoryId(categoryId);
+    }
+/*
     public Product createProductInCategory(int categoryId, Product product) {
         // Dies erfordert zusätzliche Logik und Abhängigkeiten, z.B. ein CategoryRepository
         // Ich gebe ein Beispiel, das wahrscheinlich nicht Ihrem genauen Modell entspricht:

@@ -1,6 +1,7 @@
 package com.example.demo.ressources.product;
 
 import com.example.demo.ressources.category.Category;
+import com.example.demo.ressources.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +17,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;
 
-    @Column(columnDefinition = "varchar(100)")
-    public String sku;
+    @Column(columnDefinition = "varchar(100)", nullable = false)
+    public String sku; // Artikelnummer
+
+    @Column(columnDefinition = "INT")
+    public Integer active;
 
     @Column(columnDefinition = "varchar(500)", nullable = false)
     public String name;
@@ -28,14 +32,20 @@ public class Product {
     @Column(columnDefinition = "MEDIUMTEXT", nullable = false)
     public String description;
 
-    @Column(columnDefinition = "FLOAT")
+    @Column(columnDefinition = "FLOAT", nullable = false)
     public Float price;
 
     @Column(columnDefinition = "INT", nullable = false)
     public Integer stock;
 
-    @ManyToOne()
-    public Category category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
 }
     /*

@@ -11,11 +11,11 @@ public class UserDetailDto {
     @NotNull
     private Integer id;
     @NotNull
-    private String benutzername;
+    private String username;
     @NotNull
-    private String passwort;
+    private String password;
     @NotNull
     private String email;
     @NotNull
-    private Date geburtstag;
+    private Date birthday;
 }

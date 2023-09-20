@@ -10,11 +10,11 @@ import java.util.Date;
 public class UserUpdateDto {
     @NotNull
     private Integer id;
-    private String benutzername;
+    private String username;
     @NotNull
-    private String passwort;
+    private String password;
     @NotNull
     private String email;
-    private Date geburtstag;
+    private Date birthday;
 }
 
