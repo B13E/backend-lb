@@ -1,11 +1,22 @@
 package com.example.demo.ressources.product;
 
+import com.example.demo.ressources.category.Category;
+import com.example.demo.ressources.product.dto.ProductDetailDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 
+/**
+ * Dieser Mapper ist für die Konvertierung von Product-Objekten in ProductDetailDto-Objekte verantwortlich.
+ */
 @Mapper(componentModel = "spring")
 public abstract class ProductCategoryMapper {
 
-    // spezifische Mappings für die Category DTOs und Entitäten definieren, ähnlich wie beim ProductMapper.
+    /**
+     * Konvertiert ein Product-Objekt in ein ProductDetailDto-Objekt.
+     *
+     * @param product Das zu konvertierende Product-Objekt.
+     * @return Ein ProductDetailDto-Objekt mit den konvertierten Daten.
+     */
+    @Mapping(source = "category", target = "category")
+    public abstract ProductDetailDto toProductDetailDto(Product product);
 }

@@ -1,5 +1,6 @@
 package com.example.demo.ressources.auth;
 
+
 import com.example.demo.ressources.user.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,54 +11,74 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Diese Klasse implementiert UserDetails und stellt benutzerspezifische Daten für Spring Security bereit.
+ */
 @Data
-    public class MyUserPrincipal implements UserDetails {
-        private User user;
+public class MyUserPrincipal implements UserDetails {
 
+    private final User user;
+
+    /**
+     * Konstruktor, um MyUserPrincipal mit einem User-Objekt zu initialisieren.
+     *
+     * @param user Das User-Objekt, das in MyUserPrincipal gewrapped wird.
+     */
+    public MyUserPrincipal(User user) {
+        this.user = user;
+    }
+
+    /**
+     * Setzt die E-Mail-Adresse des Benutzers.
+     *
+     * @param email Die neue E-Mail-Adresse des Benutzers.
+     */
     public void setEmail(String email) {
         this.user.setEmail(email);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (String privilege : user.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority(privilege));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (String role : user.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role));
         }
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        // Hier werden die Passwort des Benutzers zurückgeben.
+        return user.getPasswort();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        // Hier werden die Benutzernamen oder E-Mail des Benutzers zurückgeben.
+        return user.getEmail();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        // Implementierung, um zu überprüfen, ob das Benutzerkonto abgelaufen ist.
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        // Implementierung, um zu überprüfen, ob das Benutzerkonto gesperrt ist.
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        // Implementierung, um zu überprüfen, ob die Benutzeranmeldeinformationen abgelaufen sind.
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
-    }
-
-    public MyUserPrincipal(User user) {
-        this.user = user;
+        // Implementierung, um zu überprüfen, ob das Benutzerkonto aktiviert ist.
+        return true;
     }
 }

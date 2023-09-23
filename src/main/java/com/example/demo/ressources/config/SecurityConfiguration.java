@@ -8,28 +8,53 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Klasse zur Konfiguration der Sicherheitseinstellungen der Anwendung.
+ */
 @Configuration
 public class SecurityConfiguration {
 
+    // Injizieren des JWT Request Filters
+    private final JwtRequestFilter jwtRequestFilter;
+
     @Autowired
-    private JwtRequestFilter jwtRequestFilter;
+    public SecurityConfiguration(JwtRequestFilter jwtRequestFilter) {
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
 
-
+    /**
+     * Definiert die Security Filter Chain der Anwendung.
+     * Hier wird festgelegt, welche Anfragen zulässig sind und wie sie verarbeitet werden sollen.
+     *
+     * @param http HttpSecurity-Objekt zur Konfiguration der Sicherheitseinstellungen
+     * @return Konfigurierte Security Filter Chain
+     * @throws Exception Bei Fehlern in der Konfiguration
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // Hinzufügen des jwtRequestFilter vor dem Standard-UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        http.csrf().disable();
-        http
-                .httpBasic().disable()
-                .authorizeHttpRequests((authz) ->
-                        authz.requestMatchers("/users/auth/login").permitAll()
-                                .requestMatchers("/swagger-ui/index.html").permitAll()
-                                .requestMatchers("/swagger-ui/*").permitAll()
-                                .requestMatchers("/v3/api-docs").permitAll()
-                                .requestMatchers("/v3/api-docs/swagger-config").permitAll()
-                                .anyRequest().permitAll()
 
-                );
+        // Deaktivieren des CSRF-Schutzes, da alle Anfragen erlaubt sind
+        http.csrf().disable();
+
+        // Deaktivieren der HTTP-Basic-Authentifizierung
+        http.httpBasic().disable();
+
+        // Konfiguration der Autorisierungsanfragen
+        http.authorizeHttpRequests(authz -> authz
+                .requestMatchers(
+                        "/users/auth/login",
+                        "/swagger-ui/index.html",
+                        "/swagger-ui/*",
+                        "/v3/api-docs",
+                        "/v3/api-docs/swagger-config"
+                ).permitAll()
+                // Alle anderen Anfragen sind ebenfalls erlaubt
+                .anyRequest().permitAll()
+        );
+
+        // Erstellen und Rückgabe der Security Filter Chain
         return http.build();
     }
 }

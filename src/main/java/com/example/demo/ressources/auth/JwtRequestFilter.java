@@ -15,13 +15,20 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * Diese Klasse ist verantwortlich für das Filtern von eingehenden HTTP-Anfragen
+ * und das Extrahieren und Überprüfen des JWT (JSON Web Token) aus dem Authorization-Header.
+ */
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private static final String SECRET_KEY = "yourSecretKey";
 
-    private final String SECRET_KEY = "yourSecretKey";
+    @Autowired
+    public JwtRequestFilter(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void doFilterInternal(
@@ -29,24 +36,32 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain chain
     ) throws ServletException, IOException {
+        // Extrahieren des Authorization-Headers aus der Anfrage
         final String authorizationHeader = request.getHeader("Authorization");
 
         String email = null;
         String jwt = null;
 
+        // Überprüfen, ob der Header existiert und mit "Bearer " beginnt
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            // Extrahieren des Tokens aus dem Header und Parsen des Tokens, um die Email zu erhalten
             jwt = authorizationHeader.substring(7);
             email = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(jwt).getBody().getSubject();
         }
 
+        // Überprüfen, ob eine Email extrahiert wurde und ob der Benutzer noch nicht authentifiziert ist
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            // Laden des Benutzers anhand der Email und Erstellen eines Authentication Tokens
             User user = userService.findUserByEmail(email);
             MyUserPrincipal userPrincipal = new MyUserPrincipal(user);
-            userPrincipal.setEmail(user.getEmail());
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
+
+            // Setzen des Authentication Tokens im Security Context
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
+
+        // Fortsetzen der Filterkette
         chain.doFilter(request, response);
     }
 }
-

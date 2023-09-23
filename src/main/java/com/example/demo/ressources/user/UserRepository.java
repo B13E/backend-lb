@@ -7,10 +7,23 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+    /**
+     * Sucht nach einem Benutzer anhand seiner E-Mail-Adresse.
+     *
+     * @param email Die E-Mail-Adresse des gesuchten Benutzers.
+     * @return Der gefundene Benutzer oder null, wenn kein Benutzer mit der angegebenen E-Mail-Adresse gefunden wurde.
+     */
     @Query("SELECT u FROM User u WHERE u.email = :email")
     User findUserByEmail(String email);
 
-    // Sie könnten dies erweitern, um auch das Passwort zu überprüfen,
-    // aber denken Sie daran, in einer echten Anwendung sollten Sie niemals rohe Passwörter speichern oder vergleichen.
+    /**
+     * Sucht nach einem Benutzer anhand seiner E-Mail-Adresse und seines Passworts.
+     * Beachten Sie, dass es sicherer ist, Passwörter in einer sicheren Form zu speichern und zu überprüfen,
+     * anstatt rohe Passwörter zu vergleichen.
+     *
+     * @param email    Die E-Mail-Adresse des gesuchten Benutzers.
+     * @param passwort Das Passwort des gesuchten Benutzers.
+     * @return Der gefundene Benutzer oder null, wenn kein Benutzer mit den angegebenen Anmeldeinformationen gefunden wurde.
+     */
     User findByEmailAndPasswort(String email, String passwort);
 }
